@@ -14,11 +14,6 @@ services:
     depends_on:
       - php
 
-  #node
-  npm:
-    image: node:14
-    container_name: node_cli
-
   #php
   php:
     build:
@@ -46,22 +41,10 @@ services:
     volumes:
       - ./:/var/www/html
 
-  #vuejs
-
-  #redis
-  #elasticsearch
-  #rabbitmq
-  #postgresql
-  postgresql:
-    image: postgres
-    container_name: postgres_db
-    env_file:
-      - ./env/postgres.env
-
   #mysql
   mysql:
     image: mysql:8.0
-    container_name: mysql_wiseband
+    container_name: mysql_sharemoumouth
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE_SYMFONY}
       MYSQL_USER: ${MYSQL_USER_SYMFONY}
@@ -85,24 +68,3 @@ services:
       PMA_PORT: ${MYSQL_PORT}
     depends_on:
       - mysql
-
-  #adminer
-  adminer:
-    image: adminer:4.8.1
-    container_name: postgres_gui
-    ports:
-      - '8080:8080'
-
-  #PgAdmin
-  pgadmin:
-    image: dpage/pgadmin4:5.6
-    container_name: pgadmin_gui
-    ports:
-      - '5050:80'
-    env_file:
-      - ./env/pgadmin.env
-    depends_on:
-      - postgresql
-
-
-  #système de mail
